@@ -1,30 +1,33 @@
-import { DataTypes as DT, Model, Sequelize } from "sequelize";
+// models/Pelicula.js
+import { DataTypes, Model, Sequelize } from "sequelize";
 import connection from "../database/index.js";
 
-class Pelicula extends Model {}
+class Pelicula extends Model {
+
+}
 
 Pelicula.init(
   {
     id: {
-      type: DT.INTEGER,
+      type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
     titulo: {
-      type: DT.STRING,
-      allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-    añoLanzamiento: DT.INTEGER,
-    género: DT.STRING,
-    director: DT.STRING,
-    creador: DT.STRING,
-    descripción: DT.TEXT
+    añoLanzamiento: DataTypes.INTEGER,
+    género: DataTypes.STRING,
+    director: DataTypes.STRING,
+    creador: DataTypes.STRING,
+    descripción: DataTypes.TEXT,
   },
   {
     sequelize: connection,
     modelName: "Pelicula",
-    timestamps: false
+    timestamps: false,
   }
 );
 

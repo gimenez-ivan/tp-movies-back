@@ -1,33 +1,33 @@
-import { DataTypes as DT, Model, Sequelize } from "sequelize";
+import { DataTypes, Model, Sequelize } from "sequelize";
 import connection from "../database/index.js";
 
-class Review extends Model {}
+class Review extends Model { }
 
 Review.init(
-  {
-    userId: {
-      type: DT.INTEGER,
-      allowNull: false,
+    {
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        movieId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        rating: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                min: 1,
+                max: 10,
+            },
+        },
+        comment: DataTypes.TEXT,
     },
-    movieId: {
-      type: DT.INTEGER,
-      allowNull: false,
-    },
-    rating: {
-      type: DT.INTEGER,
-      allowNull: false,
-      validate: {
-        min: 1,
-        max: 10,
-      },
-    },
-    comment: DT.TEXT,
-  },
-  {
-    sequelize: connection,
-    modelName: "Review",
-    timestamps: false,
-  }
+    {
+        sequelize: connection,
+        modelName: "Review",
+        timestamps: false,
+    }
 );
 
 export default Review;
