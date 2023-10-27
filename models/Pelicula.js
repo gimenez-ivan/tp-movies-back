@@ -1,10 +1,7 @@
-// models/Pelicula.js
-import { DataTypes, Model, Sequelize } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import connection from "../database/index.js";
 
-class Pelicula extends Model {
-
-}
+class Pelicula extends Model {}
 
 Pelicula.init(
   {
@@ -17,12 +14,36 @@ Pelicula.init(
     titulo: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "El título de la película no puede estar vacío.",
+        },
+      },
     },
-    añoLanzamiento: DataTypes.INTEGER,
-    género: DataTypes.STRING,
-    director: DataTypes.STRING,
-    creador: DataTypes.STRING,
-    descripción: DataTypes.TEXT,
+    añoLanzamiento: {
+      type: DataTypes.INTEGER,
+      validate: {
+        isInt: {
+          msg: "El año de lanzamiento debe ser un número entero.",
+        },
+        min: {
+          args: [1800],
+          msg: "El año de lanzamiento debe ser igual o superior a 1800.",
+        },
+      },
+    },
+    género: {
+      type: DataTypes.STRING,
+    },
+    director: {
+      type: DataTypes.STRING,
+    },
+    creador: {
+      type: DataTypes.STRING,
+    },
+    descripción: {
+      type: DataTypes.TEXT,
+    },
   },
   {
     sequelize: connection,

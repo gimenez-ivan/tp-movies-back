@@ -1,29 +1,17 @@
-const { Router } = require('express');
+import { Router } from 'express';
+import reviewController from '../controller/reviewController.js';
 
-const reviewRouter = Router(); 
+const reviewController = new ReviewController();
 
-reviewRouter.get('/list', (req, res) => {
-    res.send('Lista de reseñas');
-})
+const reviewRouter = Router();
 
-reviewRouter.get('/:id', (req, res) => {
-    res.send(`GET reseña por id`);
-})
-
-reviewRouter.put('/:id', (req, res) => {
-    res.send(`PUT reseña por id`);
-})
-
-reviewRouter.post('/', (req, res) => {
-    res.send(`POST reseña`);
-})
-
-reviewRouter.delete('/:id', (req, res) => {
-    res.send(`DELETE reseña por id`);
-})
+reviewRouter.get('/list', reviewController.getAllReviews);
+reviewRouter.get('/:id', reviewController.getReviewById);
+reviewRouter.put('/:id', reviewController.updateReview);
+reviewRouter.post('/', reviewController.createReview);
+reviewRouter.delete('/:id', reviewController.deleteReview);
 
 module.exports = reviewRouter;
-
 
 
 
