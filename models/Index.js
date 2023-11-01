@@ -1,7 +1,7 @@
-import Usuario from "./Usuario";
-import CatalogoUsuario from "./CatalogoUsuario";
-import Pelicula from "./Pelicula";
-import Review from "./Review";
+import Usuario from "./Usuario.js";
+import CatalogoUsuario from "./CatalogoUsuario.js";
+import Pelicula from "./Pelicula.js";
+import Review from "./Review.js";
 
 // Define las relaciones entre los modelos aquí
 Usuario.hasOne(CatalogoUsuario, { foreignKey: "idUsuario" });

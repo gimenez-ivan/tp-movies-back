@@ -1,9 +1,9 @@
-import { Usuario } from "../models/Index.js";
+import { Usuario } from "../models/index.js";
 
 class UserController {
   constructor() {}
 
-  getAllUsers = async (req, res) => {
+  getAllUsuarios = async (req, res) => {
     try {
       const users = await Usuario.findAll({
         attributes: ["id", "nombreUsuario"],

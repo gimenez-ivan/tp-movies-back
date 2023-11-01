@@ -1,5 +1,5 @@
 
-import { Pelicula } from "../models/Index.js";
+import { Pelicula } from "../models/index.js";
 
 class PeliculaController {
   constructor() {}

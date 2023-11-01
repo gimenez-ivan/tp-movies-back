@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import PeliculaController from '../controller/PeliculaController.js';
+import PeliculaController from '../controllers/peliculaController.js';
 
 const peliculaController = new PeliculaController();
 

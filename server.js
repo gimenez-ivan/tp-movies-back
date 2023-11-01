@@ -4,15 +4,17 @@ import Usuario from "./models/Usuario.js";
 import CatalogoUsuario from "./models/CatalogoUsuario.js";
 import Pelicula from "./models/Pelicula.js";
 import Review from "./models/Review.js";
+import router from "./routes/index.js";
 
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-});
+// app.get('/', (req, res) => {
+//   res.send('Hello World!')
+// });
 
+app.use(router);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
