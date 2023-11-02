@@ -13,3 +13,4 @@ Review.belongsTo(Pelicula, { foreignKey: "movieId" });
 
 
 export { Usuario, CatalogoUsuario, Pelicula, Review };
+//borrar este comentario
