@@ -5,7 +5,7 @@ import CatalogoUsuario from "./models/CatalogoUsuario.js";
 import Pelicula from "./models/Pelicula.js";
 import Review from "./models/Review.js";
 import router from "./routes/index.js";
-
+import "dotenv/config";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
