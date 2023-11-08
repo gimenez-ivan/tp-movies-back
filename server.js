@@ -10,9 +10,10 @@ import "dotenv/config";
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World!')
-// });
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ error: "Internal Server Error" });
+});
 
 app.use(router);
 app.use(express.json());

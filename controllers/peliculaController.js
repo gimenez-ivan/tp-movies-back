@@ -1,62 +1,67 @@
-
-import { Pelicula } from "../models/index.js";
-
+import { Pelicula } from "./models/index.js";
 class PeliculaController {
   constructor() {}
 
-  getAllPeliculas = async (req, res) => {
+  async getAllPeliculas(req, res) {
     try {
       const peliculas = await Pelicula.findAll();
-      res.status(200).send({ success: true, message: "Todas las películas", data: peliculas });
+      return res.status(200).json({ success: true, message: "Todas las películas", data: peliculas });
     } catch (error) {
-      res.status(400).send({ success: false, message: error.message });
+      return res.status(400).json({ success: false, message: error.message });
     }
-  };
+  }
 
-  getPeliculaById = async (req, res) => {
+  async getPeliculaById(req, res) {
     try {
       const { id } = req.params;
       const pelicula = await Pelicula.findOne({ where: { id } });
-      if (!pelicula) throw new Error("No se encontró la película");
-      res.status(200).send({ success: true, message: "Película encontrada", data: pelicula });
+      if (!pelicula) {
+        return res.status(404).json({ success: false, message: "No se encontró la película" });
+      }
+      return res.status(200).json({ success: true, message: "Película encontrada", data: pelicula });
     } catch (error) {
-      res.status(400).send({ success: false, message: error.message });
+      return res.status(400).json({ success: false, message: error.message });
     }
-  };
+  }
 
-  createPelicula = async (req, res) => {
+  async createPelicula(req, res) {
     try {
       const { titulo, añoLanzamiento, género, director, creador, descripción } = req.body;
       const pelicula = await Pelicula.create({ titulo, añoLanzamiento, género, director, creador, descripción });
-      res.status(200).send({ success: true, message: "Película creada", data: pelicula });
+      return res.status(201).json({ success: true, message: "Película creada", data: pelicula });
     } catch (error) {
-      res.status(400).send({ success: false, message: error.message });
+      return res.status(400).json({ success: false, message: error.message });
     }
-  };
-
-  updatePelicula = async (req, res) => {
+  }
+  async updatePelicula(req, res) {
     try {
       const { id } = req.params;
       const { titulo, añoLanzamiento, género, director, creador, descripción } = req.body;
-      const pelicula = await Pelicula.update(
+      const updatedPelicula = await Pelicula.update(
         { titulo, añoLanzamiento, género, director, creador, descripción },
         { where: { id } }
       );
-      res.status(200).send({ success: true, message: "Película modificada", data: pelicula });
+      if (updatedPelicula[0] === 0) {
+           return res.status(404).json({ success: false, message: "Película no encontrada" });
+      }
+      return res.status(200).json({ success: true, message: "Película modificada" });
     } catch (error) {
-      res.status(400).send({ success: false, message: error.message });
+      return res.status(400).json({ success: false, message: error.message });
     }
-  };
+  }
 
-  deletePelicula = async (req, res) => {
+  async deletePelicula(req, res) {
     try {
       const { id } = req.params;
-      const pelicula = await Pelicula.destroy({ where: { id } });
-      res.status(200).send({ success: true, message: "Película eliminada", data: pelicula });
+      const deletedPelicula = await Pelicula.destroy({ where: { id } });
+      if (deletedPelicula === 0) {
+          return res.status(404).json({ success: false, message: "Película no encontrada" });
+      }
+      return res.status(200).json({ success: true, message: "Película eliminada" });
     } catch (error) {
-      res.status(400).send({ success: false, message: error.message });
+      return res.status(400).json({ success: false, message: error.message });
     }
-  };
+  }
 }
 
 export default PeliculaController;
