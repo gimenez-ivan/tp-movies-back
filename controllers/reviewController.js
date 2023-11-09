@@ -1,11 +1,11 @@
-import { Review } from "./models/index.js";
+import { review } from "../models/index.js";
 
-class ReviewController {
+class reviewController {
   constructor() {}
 
   getAllReviews = async (req, res) => {
     try {
-      const reviews = await Review.findAll();
+      const reviews = await review.findAll();
       res
         .status(200)
         .send({ success: true, message: "Todas las reseñas", data: reviews });
@@ -17,7 +17,7 @@ class ReviewController {
   getReviewById = async (req, res) => {
     try {
       const { id } = req.params;
-      const review = await Review.findOne({
+      const review = await review.findOne({
         where: { id },
       });
       if (!review) throw new Error("No se encontró la reseña");
@@ -32,7 +32,7 @@ class ReviewController {
   createReview = async (req, res) => {
     try {
       const { userId, movieId, rating, comment } = req.body;
-      const review = await Review.create({ userId, movieId, rating, comment });
+      const review = await review.create({ userId, movieId, rating, comment });
       if (!review) throw new Error("No se pudo crear la reseña");
       res
         .status(200)
@@ -65,7 +65,7 @@ class ReviewController {
   deleteReview = async (req, res) => {
     try {
       const { id } = req.params;
-      const review = await Review.destroy({
+      const review = await review.destroy({
         where: { id },
       });
       res
@@ -77,4 +77,4 @@ class ReviewController {
   };
 }
 
-export default ReviewController;
+export default reviewController;

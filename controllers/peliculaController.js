@@ -1,10 +1,10 @@
-import { Pelicula } from "./models/index.js";
-class PeliculaController {
+import { pelicula } from "../models/index.js";
+class peliculaController {
   constructor() {}
 
   async getAllPeliculas(req, res) {
     try {
-      const peliculas = await Pelicula.findAll();
+      const peliculas = await pelicula.findAll();
       return res.status(200).json({ success: true, message: "Todas las películas", data: peliculas });
     } catch (error) {
       return res.status(400).json({ success: false, message: error.message });
@@ -14,7 +14,7 @@ class PeliculaController {
   async getPeliculaById(req, res) {
     try {
       const { id } = req.params;
-      const pelicula = await Pelicula.findOne({ where: { id } });
+      const pelicula = await pelicula.findOne({ where: { id } });
       if (!pelicula) {
         return res.status(404).json({ success: false, message: "No se encontró la película" });
       }
@@ -37,7 +37,7 @@ class PeliculaController {
     try {
       const { id } = req.params;
       const { titulo, añoLanzamiento, género, director, creador, descripción } = req.body;
-      const updatedPelicula = await Pelicula.update(
+      const updatedPelicula = await pelicula.update(
         { titulo, añoLanzamiento, género, director, creador, descripción },
         { where: { id } }
       );
@@ -53,7 +53,7 @@ class PeliculaController {
   async deletePelicula(req, res) {
     try {
       const { id } = req.params;
-      const deletedPelicula = await Pelicula.destroy({ where: { id } });
+      const deletedPelicula = await pelicula.destroy({ where: { id } });
       if (deletedPelicula === 0) {
           return res.status(404).json({ success: false, message: "Película no encontrada" });
       }
@@ -64,4 +64,4 @@ class PeliculaController {
   }
 }
 
-export default PeliculaController;
+export default peliculaController;

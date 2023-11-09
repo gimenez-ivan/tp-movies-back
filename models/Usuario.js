@@ -1,9 +1,9 @@
 import { DataTypes, Model } from "sequelize";
 import connection from "../database/index.js";
 
-class Usuario extends Model {}
+class usuario extends Model {}
 
-Usuario.init(
+usuario.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -44,9 +44,9 @@ Usuario.init(
   },
   {
     sequelize: connection,
-    modelName: "Usuario",
+    modelName: "usuario",
     timestamps: false,
   }
 );
 
-export default Usuario;
+export default usuario;

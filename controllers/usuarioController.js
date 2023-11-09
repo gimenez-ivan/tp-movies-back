@@ -1,11 +1,11 @@
-import { Usuario } from "./models/index.js";
+import { usuario } from "../models/index.js";
 
-class UserController {
+class usuarioController {
   constructor() {}
 
   getAllUsuarios = async (req, res) => {
     try {
-      const users = await Usuario.findAll({
+      const users = await usuario.findAll({
         attributes: ["id", "nombreUsuario"],
       });
       res.status(200).send({ success: true, message: "Todos los usuarios", data: users });
@@ -17,7 +17,7 @@ class UserController {
   getUserById = async (req, res) => {
     try {
       const { id } = req.params;
-      const user = await Usuario.findOne({
+      const user = await usuario.findOne({
         where: { id },
         attributes: ["id", "nombreUsuario"],
       });
@@ -32,7 +32,7 @@ class UserController {
     try {
       const { nombreUsuario, contraseña } = req.body;
 
-      const user = await Usuario.create({ nombreUsuario, contraseña });
+      const user = await usuario.create({ nombreUsuario, contraseña });
       if (!user) throw new Error("No se pudo crear el usuario");
       res.status(200).send({ success: true, message: "Usuario creado", data: user });
     } catch (error) {
@@ -44,7 +44,7 @@ class UserController {
     try {
       const { id } = req.params;
       const { nombreUsuario, contraseña } = req.body;
-      const user = await Usuario.update(
+      const user = await usuario.update(
         { nombreUsuario, contraseña },
         {
           where: {
@@ -61,7 +61,7 @@ class UserController {
   deleteUser = async (req, res) => {
     try {
       const { id } = req.params;
-      const user = await Usuario.destroy({
+      const user = await usuario.destroy({
         where: { id },
       });
       res.status(200).send({ success: true, message: "Usuario eliminado", data: user });
@@ -71,4 +71,4 @@ class UserController {
   };
 }
 
-export default UserController;
+export default usuarioController;

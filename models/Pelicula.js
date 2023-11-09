@@ -1,9 +1,9 @@
 import { DataTypes, Model } from "sequelize";
 import connection from "../database/index.js";
 
-class Pelicula extends Model {}
+class pelicula extends Model {}
 
-Pelicula.init(
+pelicula.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -47,9 +47,9 @@ Pelicula.init(
   },
   {
     sequelize: connection,
-    modelName: "Pelicula",
+    modelName: "pelicula",
     timestamps: false,
   }
 );
 
-export default Pelicula;
+export default pelicula;
