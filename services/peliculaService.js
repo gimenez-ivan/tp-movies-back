@@ -1,18 +1,17 @@
-import { Pelicula } from "./models/index.js";
+import { pelicula } from "./models/index.js";
 
 class PeliculaService {
   async getAllPeliculas() {
     try {
-      const peliculas = await Pelicula.findAll();
+      const peliculas = await pelicula.findAll();
       return peliculas;
     } catch (error) {
       throw new Error("No se pudieron obtener todas las películas.");
     }
   }
-
   async getPeliculaById(id) {
     try {
-      const pelicula = await Pelicula.findOne({ where: { id } });
+      const pelicula = await pelicula.findOne({ where: { id } });
       if (!pelicula) {
         throw new Error("No se encontró la película.");
       }
@@ -24,7 +23,7 @@ class PeliculaService {
 
   async createPelicula(data) {
     try {
-      const pelicula = await Pelicula.create(data);
+      const pelicula = await pelicula.create(data);
       return pelicula;
     } catch (error) {
       throw new Error("No se pudo crear la película.");
@@ -33,7 +32,7 @@ class PeliculaService {
 
   async updatePelicula(id, data) {
     try {
-      const [rowsUpdated, updatedPelicula] = await Pelicula.update(data, { where: { id } });
+      const [rowsUpdated, updatedPelicula] = await pelicula.update(data, { where: { id } });
       if (rowsUpdated === 0) {
         throw new Error("No se encontró la película para actualizar.");
       }
@@ -45,7 +44,7 @@ class PeliculaService {
 
   async deletePelicula(id) {
     try {
-      const deletedCount = await Pelicula.destroy({ where: { id } });
+      const deletedCount = await pelicula.destroy({ where: { id } });
       if (deletedCount === 0) {
         throw new Error("No se encontró la película para eliminar.");
       }

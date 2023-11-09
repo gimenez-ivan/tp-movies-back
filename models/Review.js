@@ -1,9 +1,9 @@
 import { DataTypes, Model } from "sequelize";
 import connection from "../database/index.js";
 
-class review extends Model {}
+class Review extends Model {}
 
-review.init(
+Review.init(
   {
     userId: {
       type: DataTypes.INTEGER,
@@ -41,4 +41,4 @@ review.init(
   }
 );
 
-export default review;
+export default Review;

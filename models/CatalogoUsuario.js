@@ -1,9 +1,9 @@
 import { DataTypes, Model } from "sequelize";
 import connection from "../database/index.js";
 
-class catalogoUsuario extends Model {}
+class CatalogoUsuario extends Model {}
 
-catalogoUsuario.init(
+CatalogoUsuario.init(
   {
     idUsuario: {
       type: DataTypes.INTEGER,
@@ -21,4 +21,4 @@ catalogoUsuario.init(
   }
 );
 
-export default catalogoUsuario;
+export default CatalogoUsuario;

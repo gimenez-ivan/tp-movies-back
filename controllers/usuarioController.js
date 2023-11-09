@@ -1,6 +1,7 @@
-import { usuario } from "../models/index.js";
+import { usuario } from "./models/index.js";
 
-class usuarioController {
+class UsuarioController {
+
   constructor() {}
 
   getAllUsuarios = async (req, res) => {
@@ -71,4 +72,4 @@ class usuarioController {
   };
 }
 
-export default usuarioController;
+export default UsuarioController;

@@ -1,9 +1,9 @@
-import { Usuario } from "./models/index.js";
+import { usuario } from "./models/index.js";
 
 class UsuarioService {
   async getAllUsuarios() {
     try {
-      const users = await Usuario.findAll({
+      const users = await usuario.findAll({
         attributes: ["id", "nombreUsuario"],
       });
       return { success: true, data: users };
@@ -14,7 +14,7 @@ class UsuarioService {
 
   async getUserById(id) {
     try {
-      const user = await Usuario.findOne({
+      const user = await usuario.findOne({
         where: { id },
         attributes: ["id", "nombreUsuario"],
       });
@@ -29,7 +29,7 @@ class UsuarioService {
 
   async createUser(nombreUsuario, contraseña) {
     try {
-      const user = await Usuario.create({ nombreUsuario, contraseña });
+      const user = await usuario.create({ nombreUsuario, contraseña });
       if (!user) {
         return { success: false, error: "No se pudo crear el usuario" };
       }
@@ -41,7 +41,7 @@ class UsuarioService {
 
   async updateUser(id, nombreUsuario, contraseña) {
     try {
-      const [updatedRows] = await Usuario.update(
+      const [updatedRows] = await usuario.update(
         { nombreUsuario, contraseña },
         {
           where: {
@@ -60,7 +60,7 @@ class UsuarioService {
 
   async deleteUser(id) {
     try {
-      const deletedRows = await Usuario.destroy({
+      const deletedRows = await usuario.destroy({
         where: { id },
       });
       if (deletedRows === 0) {

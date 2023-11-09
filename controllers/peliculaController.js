@@ -1,67 +1,61 @@
-import { pelicula } from "../models/index.js";
-class peliculaController {
+import { Pelicula } from "./models/index.js";
+
+class PeliculaController {
   constructor() {}
 
-  async getAllPeliculas(req, res) {
+  getAllPeliculas = async (req, res) => {
     try {
       const peliculas = await pelicula.findAll();
-      return res.status(200).json({ success: true, message: "Todas las películas", data: peliculas });
+      res.status(200).send({ success: true, message: "Todas las películas", data: peliculas });
     } catch (error) {
-      return res.status(400).json({ success: false, message: error.message });
+      res.status(400).send({ success: false, message: error.message });
     }
-  }
+  };
 
-  async getPeliculaById(req, res) {
+  getPeliculaById = async (req, res) => {
     try {
       const { id } = req.params;
       const pelicula = await pelicula.findOne({ where: { id } });
-      if (!pelicula) {
-        return res.status(404).json({ success: false, message: "No se encontró la película" });
-      }
-      return res.status(200).json({ success: true, message: "Película encontrada", data: pelicula });
+      if (!pelicula) throw new Error("No se encontró la película");
+      res.status(200).send({ success: true, message: "Película encontrada", data: pelicula });
     } catch (error) {
-      return res.status(400).json({ success: false, message: error.message });
+      res.status(400).send({ success: false, message: error.message });
     }
-  }
+  };
 
-  async createPelicula(req, res) {
+  createPelicula = async (req, res) => {
     try {
       const { titulo, añoLanzamiento, género, director, creador, descripción } = req.body;
-      const pelicula = await Pelicula.create({ titulo, añoLanzamiento, género, director, creador, descripción });
-      return res.status(201).json({ success: true, message: "Película creada", data: pelicula });
+      const nuevaPelicula = await pelicula.create({ titulo, añoLanzamiento, género, director, creador, descripción });
+      res.status(200).send({ success: true, message: "Película creada", data: nuevaPelicula });
     } catch (error) {
-      return res.status(400).json({ success: false, message: error.message });
+      res.status(400).send({ success: false, message: error.message });
     }
-  }
-  async updatePelicula(req, res) {
+  };
+
+  updatePelicula = async (req, res) => {
     try {
       const { id } = req.params;
       const { titulo, añoLanzamiento, género, director, creador, descripción } = req.body;
-      const updatedPelicula = await pelicula.update(
+      const peliculaActualizada = await pelicula.update(
         { titulo, añoLanzamiento, género, director, creador, descripción },
         { where: { id } }
       );
-      if (updatedPelicula[0] === 0) {
-           return res.status(404).json({ success: false, message: "Película no encontrada" });
-      }
-      return res.status(200).json({ success: true, message: "Película modificada" });
+      res.status(200).send({ success: true, message: "Película modificada", data: peliculaActualizada });
     } catch (error) {
-      return res.status(400).json({ success: false, message: error.message });
+      res.status(400).send({ success: false, message: error.message });
     }
-  }
+  };
 
-  async deletePelicula(req, res) {
+  deletePelicula = async (req, res) => {
     try {
       const { id } = req.params;
-      const deletedPelicula = await pelicula.destroy({ where: { id } });
-      if (deletedPelicula === 0) {
-          return res.status(404).json({ success: false, message: "Película no encontrada" });
-      }
-      return res.status(200).json({ success: true, message: "Película eliminada" });
+      const peliculaEliminada = await pelicula.destroy({ where: { id } });
+      res.status(200).send({ success: true, message: "Película eliminada", data: peliculaEliminada });
     } catch (error) {
-      return res.status(400).json({ success: false, message: error.message });
+      res.status(400).send({ success: false, message: error.message });
     }
-  }
+  };
 }
 
-export default peliculaController;
+export default PeliculaController;

@@ -1,6 +1,6 @@
-import { review } from "../models/index.js";
+import { review } from "./models/index.js";
 
-class reviewController {
+class ReviewController {
   constructor() {}
 
   getAllReviews = async (req, res) => {
@@ -46,7 +46,7 @@ class reviewController {
     try {
       const { id } = req.params;
       const { userId, movieId, rating, comment } = req.body;
-      const review = await Review.update(
+      const review = await review.update(
         { userId, movieId, rating, comment },
         {
           where: {
@@ -77,4 +77,4 @@ class reviewController {
   };
 }
 
-export default reviewController;
+export default ReviewController;

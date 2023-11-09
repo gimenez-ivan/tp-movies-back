@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import reviewController from '../controller/reviewController.js';
 
-const reviewController = new ReviewController();
+const reviewController = new reviewController();
 
 const reviewRouter = Router();
 
