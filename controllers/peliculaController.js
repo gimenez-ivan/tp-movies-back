@@ -1,4 +1,4 @@
-import { Pelicula } from "./models/index.js";
+import { Pelicula } from "./models/index.js"
 
 class PeliculaController {
   constructor() {}
