@@ -1,4 +1,4 @@
-import { Review } from "./models/index.js";
+import { Review } from "../models/index.js";
 
 class ReviewService {
   async getAllReviews() {

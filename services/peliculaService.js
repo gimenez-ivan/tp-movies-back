@@ -1,4 +1,4 @@
-import { pelicula } from "./models/index.js";
+import { pelicula } from "../models/index.js";
 
 class PeliculaService {
   async getAllPeliculas() {

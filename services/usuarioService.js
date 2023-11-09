@@ -1,4 +1,4 @@
-import { usuario } from "./models/index.js";
+import { usuario } from "../models/index.js";
 
 class UsuarioService {
   async getAllUsuarios() {

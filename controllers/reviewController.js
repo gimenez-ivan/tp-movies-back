@@ -1,4 +1,4 @@
-import { review } from "./models/index.js";
+import { Review } from "../models/index.js";
 
 class ReviewController {
   constructor() {}
