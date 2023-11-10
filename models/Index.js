@@ -1,12 +1,16 @@
-import Usuario from "./Usuario.js";
-import Catalogo from "./Catalogo.js";
-import Pelicula from "./Pelicula.js";
+import Catalog from "./Catalog.js";
+import Movie from "./Movie.js";
 import Review from "./Review.js";
+import Role from "./Role.js";
+import User from "./User.js";
 
-Usuario.belongsToMany(Pelicula, { through: Catalogo, foreignKey: "idUsuario" });
-Pelicula.belongsToMany(Usuario, { through: Catalogo, foreignKey: "idPelicula" });
+User.belongsToMany(Movie, { through: Catalog, foreignKey: "userId" });
+Movie.belongsToMany(User, { through: Catalog, foreignKey: "movieId" });
 
-Usuario.belongsToMany(Pelicula, { through: Review, foreignKey: "idUsuario" });
-Pelicula.belongsToMany(Usuario, { through: Review, foreignKey: "idPelicula" });
+User.belongsToMany(Movie, { through: Review, foreignKey: "userId" });
+Movie.belongsToMany(User, { through: Review, foreignKey: "movieId" });
 
-export { Usuario, Pelicula, Review, Catalogo };
+Role.hasMany(User, { foreignKey: 'roleId', })
+User.belongsTo(Role, { foreignKey: "roleId" })
+
+export { User, Movie, Review, Catalog };

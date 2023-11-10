@@ -1,9 +1,11 @@
 import { Review } from "../models/index.js";
 
 class ReviewController {
-  constructor() {}
+  constructor() {
+    this.review = Review;
+  }
 
-  getAllReviews = async (req, res) => {
+  getReviews = async (req, res) => {
     try {
       const reviews = await review.findAll();
       res
@@ -13,6 +15,14 @@ class ReviewController {
       res.status(400).send({ success: false, message: error.message });
     }
   };
+
+  getMovieReviews = async (req, res) => {
+    // Trae todas las reviews de una pelicula.
+  }
+
+  getUserReviews = async (req, res) => {
+    // Trae todas las reviews de un usuario.
+  }
 
   getReviewById = async (req, res) => {
     try {

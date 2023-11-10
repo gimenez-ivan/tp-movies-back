@@ -2,6 +2,7 @@ import { Router } from "express";
 import usuariosRouter from "./usuariosRouter.js";
 import peliculasRouter from "./peliculasRouter.js";
 import catalogoRouter from "./catalogoRouter.js";
+import rolesRouter from "./rolesRouter.js";
 
 const router = Router();
 
