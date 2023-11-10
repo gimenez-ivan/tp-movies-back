@@ -1,17 +1,17 @@
 import { DataTypes, Model } from "sequelize";
 import connection from "../database/index.js";
 
-class Pelicula extends Model {}
+class Movie extends Model {}
 
-Pelicula.init(
+Movie.init(
   {
-    idPelicula: {
+    movieId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    titulo: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -20,7 +20,7 @@ Pelicula.init(
         },
       },
     },
-    anioLanzamiento: {
+    year: {
       type: DataTypes.INTEGER,
       validate: {
         isInt: {
@@ -32,24 +32,24 @@ Pelicula.init(
         },
       },
     },
-    genero: {
+    category: {
       type: DataTypes.STRING,
     },
     director: {
       type: DataTypes.STRING,
     },
-    creador: {
+    creator: {
       type: DataTypes.STRING,
     },
-    descripcion: {
+    description: {
       type: DataTypes.TEXT,
     },
   },
   {
     sequelize: connection,
-    modelName: "pelicula",
+    modelName: "Movie",
     timestamps: false,
   }
 );
 
-export default Pelicula;
+export default Movie;

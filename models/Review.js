@@ -5,11 +5,11 @@ class Review extends Model {}
 
 Review.init(
   {
-    idUsuario: {
+    userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    idPelicula: {
+    movieId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -30,7 +30,7 @@ Review.init(
         },
       },
     },
-    comentario: {
+    comment: {
       type: DataTypes.TEXT,
     },
   },
