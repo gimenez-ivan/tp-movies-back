@@ -1,9 +1,5 @@
 import express from "express";
 import connection from "./database/index.js";
-import Usuario from "./models/Usuario.js";
-import CatalogoUsuario from "./models/CatalogoUsuario.js";
-import Pelicula from "./models/Pelicula.js";
-import Review from "./models/Review.js";
 import router from "./routes/index.js";
 import "dotenv/config";
 

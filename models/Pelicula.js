@@ -5,7 +5,7 @@ class Pelicula extends Model {}
 
 Pelicula.init(
   {
-    id: {
+    idPelicula: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -20,7 +20,7 @@ Pelicula.init(
         },
       },
     },
-    añoLanzamiento: {
+    anioLanzamiento: {
       type: DataTypes.INTEGER,
       validate: {
         isInt: {
@@ -32,7 +32,7 @@ Pelicula.init(
         },
       },
     },
-    género: {
+    genero: {
       type: DataTypes.STRING,
     },
     director: {
@@ -41,7 +41,7 @@ Pelicula.init(
     creador: {
       type: DataTypes.STRING,
     },
-    descripción: {
+    descripcion: {
       type: DataTypes.TEXT,
     },
   },

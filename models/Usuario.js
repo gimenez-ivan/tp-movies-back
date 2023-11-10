@@ -5,7 +5,7 @@ class Usuario extends Model {}
 
 Usuario.init(
   {
-    id: {
+    idUsuario: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
@@ -28,7 +28,7 @@ Usuario.init(
         },
       },
     },
-    contraseña: {
+    contrasenia: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
