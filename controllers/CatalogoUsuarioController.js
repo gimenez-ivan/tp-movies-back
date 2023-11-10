@@ -1,7 +1,8 @@
-import { Pelicula } from "../models/index.js"
+import { CatalogoUsuario } from "../models/index.js"
 
-class PeliculaController {
-  constructor() {}
+// https://sequelize.org/docs/v6/core-concepts/assocs/#special-methodsmixins-added-to-instances
+class CatalogoUsuarioController {
+  constructor() { }
 
   getAllPeliculas = async (req, res) => {
     try {

@@ -3,13 +3,10 @@ import CatalogoUsuario from "./CatalogoUsuario.js";
 import Pelicula from "./Pelicula.js";
 import Review from "./Review.js";
 
+Usuario.belongsToMany(Pelicula, { through: CatalogoUsuario, foreignKey: "idUsuario" });
+Pelicula.belongsToMany(Usuario, { through: CatalogoUsuario, foreignKey: "idPelicula" });
 
-Usuario.hasOne(CatalogoUsuario, { foreignKey: "idUsuario" });
-Pelicula.belongsToMany(CatalogoUsuario, { through: "CatalogoPelicula", foreignKey: "idPelicula" });
-CatalogoUsuario.belongsTo(Usuario, { foreignKey: "idUsuario" });
-CatalogoUsuario.belongsToMany(Pelicula, { through: "CatalogoPelicula", foreignKey: "idCatalogoUsuario" });
-Review.belongsTo(Usuario, { foreignKey: "userId" });
-Review.belongsTo(Pelicula, { foreignKey: "movieId" });
-
+Usuario.belongsToMany(Pelicula, { through: Review, foreignKey: "idUsuario" });
+Pelicula.belongsToMany(Usuario, { through: Review, foreignKey: "idPelicula" });
 
 export { Usuario, Pelicula, Review, CatalogoUsuario };
