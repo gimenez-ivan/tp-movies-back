@@ -5,7 +5,8 @@ const reviewController = new reviewController();
 
 const reviewRouter = Router();
 
-reviewRouter.get('/list', reviewController.getAllReviews);
+reviewRouter.get('/lists', reviewController.getReviews); // Si es admin trae todas, sino trae las del user
+reviewRouter.get('/movies/:movieId', reviewController.getMovieReviews);
 reviewRouter.get('/:id', reviewController.getReviewById);
 reviewRouter.put('/:id', reviewController.updateReview);
 reviewRouter.post('/', reviewController.createReview);

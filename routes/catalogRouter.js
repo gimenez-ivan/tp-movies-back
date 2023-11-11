@@ -5,9 +5,11 @@ import CatalogController from '../controllers/CatalogController.js';
 const catalogRouter = Router();
 const catalogController = new CatalogController();
 
-catalogRouter.get('/list', catalogController.getCatalogMovies);
-catalogRouter.get('/:id', catalogController.addMovieToCatalog);
-catalogRouter.delete('/:id', catalogController.removeMovieToCatalog);
+
+// Ver de meter algo para que solo el owner pueda hacerlo. 
+catalogRouter.get('/:catalogId/movies', catalogController.getCatalogMovies);
+catalogRouter.get('/:catalogId/:movieId', catalogController.addMovieToCatalog);
+catalogRouter.delete('/:catalogId/:id', catalogController.removeMovieToCatalog);
 
 export default catalogRouter;
 

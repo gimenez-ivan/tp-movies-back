@@ -35,7 +35,20 @@ User.init(
           msg: "La clave debe tener al menos 8 caracteres.",
         },
       },
-    }
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: {
+        name: "email",
+        msg: "El email ingresado ya existe, elige otro.",
+      },
+      validate: {
+        isEmail: {
+          msg: "El email ingresado no es válido.",
+        },
+      },
+    },
   },
   {
     sequelize: connection,

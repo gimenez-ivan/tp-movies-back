@@ -6,6 +6,8 @@ class ReviewController {
   }
 
   getReviews = async (req, res) => {
+
+    // Si es admin trae todas, sino trae las del user (hay que hacerlo)
     try {
       const reviews = await review.findAll();
       res
@@ -15,10 +17,6 @@ class ReviewController {
       res.status(400).send({ success: false, message: error.message });
     }
   };
-
-  getMovieReviews = async (req, res) => {
-    // Trae todas las reviews de una pelicula.
-  }
 
   getUserReviews = async (req, res) => {
     // Trae todas las reviews de un usuario.

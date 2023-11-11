@@ -15,6 +15,8 @@ class RoleController {
     } catch (error) { }
   };
   createRole = async (req, res) => {
+
+    // Meter filtro isAdmin
     try {
       const { name } = req.body;
       // if (name.length > 0) throw new Error("no puede estar vacio");
