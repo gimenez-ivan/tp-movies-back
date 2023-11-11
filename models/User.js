@@ -59,3 +59,4 @@ User.beforeCreate(async (user) => {
 });
 
 export default User;
+
