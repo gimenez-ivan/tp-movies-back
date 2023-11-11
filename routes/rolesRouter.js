@@ -7,7 +7,7 @@ const roleController = new RoleController()
 rolesRouter.get("/list", roleController.getRoles);
 rolesRouter.get("/:id", roleController.getRoleById);
 rolesRouter.post("/", roleController.createRole);
-rolesRouter.put("/:id", roleController.updateRole)
+//rolesRouter.put("/:id", roleController.updateRole)  -> Inhabilito la edición de roles
 rolesRouter.delete("/:id", roleController.deleteRole);
 
 export default rolesRouter;

@@ -1,16 +1,10 @@
 import { DataTypes, Model } from "sequelize";
 import connection from "../database/index.js";
 
-class Movie extends Model {}
+class Movie extends Model { }
 
 Movie.init(
   {
-    movieId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      allowNull: false,
-    },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -36,9 +30,6 @@ Movie.init(
       type: DataTypes.STRING,
     },
     director: {
-      type: DataTypes.STRING,
-    },
-    creator: {
       type: DataTypes.STRING,
     },
     description: {

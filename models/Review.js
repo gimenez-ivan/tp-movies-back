@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import connection from "../database/index.js";
 
-class Review extends Model {}
+class Review extends Model { }
 
 Review.init(
   {

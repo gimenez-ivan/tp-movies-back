@@ -1,4 +1,4 @@
-import Role from "../models/Role.js";
+import { Role } from "../models/index.js";
 
 class RoleController {
   contructor() {
@@ -26,10 +26,13 @@ class RoleController {
       res.status(400).send({ success: false, message: error.message });
     }
   };
-  updateRole = async (req, res) => {
-    try {
-    } catch (error) { }
-  };
+
+  // No está permitido editar roles.
+
+  // updateRole = async (req, res) => {
+  //   try {
+  //   } catch (error) { }
+  // };
 
   deleteRole = async (req, res) => {
     try {
