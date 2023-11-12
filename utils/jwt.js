@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const { JWT_SECRET } = require('../config/config.js');
 
-
-const secretKey = process.env.JWT_SECRET || generateSecureKey(32);
+const secretKey = JWT_SECRET || generateSecureKey(32);
 
 function generateSecureKey(length) {
   return crypto.randomBytes(length).toString('hex');
