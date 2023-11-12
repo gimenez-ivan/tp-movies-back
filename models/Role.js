@@ -17,6 +17,9 @@ Role.init(
       },
       validate: {
         isLowercase: true,
+        notNull: {
+          msg: 'El campo "scope" es obligatorio.'
+        },
       },
     },
   },

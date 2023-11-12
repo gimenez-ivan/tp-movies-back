@@ -1,5 +1,6 @@
 import { User } from "../models/index.js";
 import { isAdmin } from "../midlewares/isAdmin.js";
+import { generateToken, verifyToken } from "../utils/jwt.js";
 
 class UserController {
 
@@ -10,9 +11,37 @@ class UserController {
   getUsers = async (req, res) => {
     try {
       const users = await this.user.findAll({
-        attributes: ["id", "nombreUsuario"],
+        attributes: ["id", "userName", "email"],
       });
       res.status(200).send({ success: true, message: "Todos los usuarios", data: users });
+    } catch (error) {
+      res.status(400).send({ success: false, message: error.message });
+    }
+  };
+
+  login = async (req, res) => {
+    try {
+      const { email, userName, password } = req.body;
+
+      const user = await User.findOne({
+        where: { email },
+        include: [{ model: Role }],
+      });
+
+      if (!user) throw new Error("Credenciales inválidas");
+
+      const validate = await user.validatePassword(password);
+      if (!validate) throw new Error("Credenciales inválidas");
+
+      const payload = {
+        id: user.id,
+        role: user.Role.dataValues.name,
+      };
+
+      const token = generateToken(payload);
+      res.cookie("token", token);
+
+      res.status(200).send({ success: true, message: "Ingreso exitoso" });
     } catch (error) {
       res.status(400).send({ success: false, message: error.message });
     }
@@ -34,11 +63,12 @@ class UserController {
 
   createUser = async (req, res) => {
     try {
-      const { nombreUsuario, contraseña } = req.body;
+      const { userName, email, password, roleId } = req.body;
+      const user = await this.user.create({ userName, email, password, roleId });
 
-      const user = await this.user.create({ nombreUsuario, contraseña });
-      if (!user) throw new Error("No se pudo crear el usuario");
-      res.status(200).send({ success: true, message: "Usuario creado", data: user });
+      if (!user) throw new Error("No fue posible crear el usuario");
+
+      res.status(200).send({ success: true, message: "Usuario creado correctamente", data: user });
     } catch (error) {
       res.status(400).send({ success: false, message: error.message });
     }
@@ -68,6 +98,7 @@ class UserController {
       const user = await this.user.destroy({
         where: { id },
       });
+      if (!user) throw new Error("No se encontró el usuario");
       res.status(200).send({ success: true, message: "Usuario eliminado", data: user });
     } catch (error) {
       res.status(400).send({ success: false, message: error.message });
