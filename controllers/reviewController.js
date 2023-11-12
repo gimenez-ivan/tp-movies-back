@@ -18,6 +18,9 @@ class ReviewController {
     }
   };
 
+  getMovieReviews = async (req, res) => {
+    //
+  }
   getUserReviews = async (req, res) => {
     // Trae todas las reviews de un usuario.
   }

@@ -11,9 +11,8 @@ const router = Router();
 router.use("/users", userRouter);
 router.use("/profiles", profilesRouter);
 router.use("/users/catalog", catalogRouter);
-router.use("/users/reviews", catalogRouter);
+router.use("/users/reviews", reviewsRouter);
 router.use("/movies", moviesRouter);
 router.use("/roles", rolesRouter);
 
 export default router;
-

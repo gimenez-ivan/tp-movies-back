@@ -1,18 +1,18 @@
 import { Router } from 'express';
-import reviewController from '../controller/reviewController.js';
+import ReviewController from '../controllers/ReviewController.js';
 
-const reviewController = new reviewController();
+const reviewController = new ReviewController();
 
-const reviewRouter = Router();
+const reviewsRouter = Router();
 
-reviewRouter.get('/lists', reviewController.getReviews); // Si es admin trae todas, sino trae las del user
-reviewRouter.get('/movies/:movieId', reviewController.getMovieReviews);
-reviewRouter.get('/:id', reviewController.getReviewById);
-reviewRouter.put('/:id', reviewController.updateReview);
-reviewRouter.post('/', reviewController.createReview);
-reviewRouter.delete('/:id', reviewController.deleteReview);
+reviewsRouter.get('/lists', reviewController.getReviews); // Si es admin trae todas, sino trae las del user
+reviewsRouter.get('/movies/:movieId', reviewController.getMovieReviews);
+reviewsRouter.get('/:id', reviewController.getReviewById);
+reviewsRouter.put('/:id', reviewController.updateReview);
+reviewsRouter.post('/', reviewController.createReview);
+reviewsRouter.delete('/:id', reviewController.deleteReview);
 
-module.exports = reviewRouter;
+export default reviewsRouter;
 
 
 

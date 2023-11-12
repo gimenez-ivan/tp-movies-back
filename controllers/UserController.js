@@ -1,4 +1,5 @@
 import { User } from "../models/index.js";
+import { isAdmin } from "../midlewares/isAdmin.js";
 
 class UserController {
 
