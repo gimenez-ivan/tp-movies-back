@@ -1,4 +1,4 @@
-import { User } from "../models/index.js";
+import { User, Role } from "../models/index.js";
 import { isAdmin } from "../midlewares/isAdmin.js";
 import { generateToken, verifyToken } from "../utils/jwt.js";
 

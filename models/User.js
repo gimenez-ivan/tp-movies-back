@@ -2,7 +2,12 @@ import { DataTypes, Model } from "sequelize";
 import connection from "../database/index.js";
 import bcrypt from "bcrypt";
 
-class User extends Model { }
+class User extends Model {
+  validatePassword = async (passwordTextoPlano) => {
+    const validate = await bcrypt.hash(passwordTextoPlano, this.salt);
+    return validate === this.password;
+  };
+}
 
 User.init(
   {
@@ -48,6 +53,9 @@ User.init(
           msg: "El email ingresado no es válido.",
         },
       },
+    },
+    salt: {
+      type: DataTypes.STRING,
     },
   },
   {
