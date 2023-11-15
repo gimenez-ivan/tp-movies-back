@@ -3,11 +3,11 @@ import crypto from 'crypto';
 
 import { JWT_SECRET } from '../config/config.js';
 
-const secretKey = JWT_SECRET || generateSecureKey(32);
-
 export const generateSecureKey = (length) => {
   return crypto.randomBytes(length).toString('hex');
 }
+
+const secretKey = JWT_SECRET || generateSecureKey(32);
 
 export const generateToken = (payload, expiresIn = '2d') => {
   const token = jwt.sign(payload, secretKey, { expiresIn });
