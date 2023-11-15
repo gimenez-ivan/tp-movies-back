@@ -1,16 +1,20 @@
 import { Router } from 'express';
 
 import UserController from '../controllers/UserController.js';
+import { validateUser } from '../midlewares/validateUser.js';
+import { isAdmin } from '../midlewares/isAdmin.js';
 
 const usuariosRouter = Router();
 const userController = new UserController();
 
-usuariosRouter.get('/login', userController.login);
-usuariosRouter.get('/list', userController.getUsers); // Solo admin puede ver todos los usuarios
-usuariosRouter.get('/:id', userController.getUserById);
+
 usuariosRouter.post('/', userController.createUser);
-usuariosRouter.put('/:id', userController.updateUser);
-usuariosRouter.delete('/:id', userController.deleteUser);
+usuariosRouter.get('/login', userController.login);
+usuariosRouter.get('/list', isAdmin, userController.getUsers); // Solo admin puede ver todos los usuarios
+usuariosRouter.get('/me', validateUser, userController.me);// esto ???
+usuariosRouter.get('/:id', validateUser, userController.getUserById);
+usuariosRouter.put('/:id', validateUser, userController.updateUser);
+usuariosRouter.delete('/:id', validateUser, userController.deleteUser);
 
 export default usuariosRouter;
 

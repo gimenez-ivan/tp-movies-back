@@ -2,7 +2,13 @@ import { DataTypes, Model } from "sequelize";
 import connection from "../database/index.js";
 import bcrypt from "bcrypt";
 
-class User extends Model { }
+class User extends Model {
+  validatePassword = async(passwordTextoPlano)=>{
+    const validate = await bcrypt.compare(passwordTextoPlano, this.salt);
+    return validate === this.password;
+  };
+
+ }
 
 User.init(
   {
