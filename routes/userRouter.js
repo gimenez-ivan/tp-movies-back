@@ -10,7 +10,7 @@ const userController = new UserController();
 usuariosRouter.post('/login', userController.login);
 usuariosRouter.get('/list', userController.getUsers); // Solo admin puede ver todos los usuarios
 usuariosRouter.get('/:id', userController.getUserById);
-usuariosRouter.post('/', userController.createUser);
+usuariosRouter.post('/create', userController.createUser);
 usuariosRouter.get('/login', userController.login);
 usuariosRouter.get('/list', isAdmin, userController.getUsers); // Solo admin puede ver todos los usuarios
 usuariosRouter.get('/me', validateUser, userController.me);// esto ???
@@ -19,5 +19,3 @@ usuariosRouter.put('/:id', validateUser, userController.updateUser);
 usuariosRouter.delete('/:id', validateUser, userController.deleteUser);
 
 export default usuariosRouter;
-
-
