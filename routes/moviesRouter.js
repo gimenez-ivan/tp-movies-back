@@ -5,13 +5,13 @@ const movieController = new MovieController();
 
 const peliculasRouter = Router();
 
-peliculasRouter.get('/list', movieController.getMovies);
+peliculasRouter.get('/list', movieController.getMovies); // testeado OK
 peliculasRouter.get('/list/top', movieController.getTopMovies);
-peliculasRouter.get('/list/:rating', movieController.getMovieByRating);
-peliculasRouter.post('/', movieController.createMovie);
-peliculasRouter.get('/:id', movieController.getMovieById);
-peliculasRouter.put('/:id', movieController.udpateMovie);
-peliculasRouter.delete('/:id', movieController.deletePelicula);
+peliculasRouter.get('/list/:rating', movieController.getMovieByRating); // testeado FIXEAR
+peliculasRouter.post('/', movieController.createMovie); // testeado OK, che solo el admin deberia create, update y delete una pelicula?
+peliculasRouter.get('/:id', movieController.getMovieById); // testeado OK
+peliculasRouter.put('/:id', movieController.updateMovie); // testeado OK
+peliculasRouter.delete('/:id', movieController.deleteMovie); // testeado OK
 
 
 export default peliculasRouter;
