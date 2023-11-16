@@ -105,7 +105,6 @@ class UserController {
     }
   };
 
-  //???
   me = async (req, res) => {
     try {
       const{user} = req;
