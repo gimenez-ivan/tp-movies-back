@@ -1,4 +1,5 @@
 import { pelicula } from "../models/index.js";
+import { Error } from "../error/ErrorMessage.js";
 
 class PeliculaService {
   async getAllPeliculas() {
@@ -6,27 +7,28 @@ class PeliculaService {
       const peliculas = await pelicula.findAll();
       return peliculas;
     } catch (error) {
-      throw new Error("No se pudieron obtener todas las películas.");
+      throw new Error(Error.errorObtenerPeliculas);
     }
   }
+
   async getPeliculaById(id) {
     try {
-      const pelicula = await pelicula.findOne({ where: { id } });
-      if (!pelicula) {
-        throw new Error("No se encontró la película.");
+      const peliculaEncontrada = await pelicula.findOne({ where: { id } });
+      if (!peliculaEncontrada) {
+        throw new Error(Error.peliculaNoEncontrada);
       }
-      return pelicula;
+      return peliculaEncontrada;
     } catch (error) {
-      throw new Error("No se pudo obtener la película.");
+      throw new Error(Error.errorObtenerPelicula);
     }
   }
 
   async createPelicula(data) {
     try {
-      const pelicula = await pelicula.create(data);
-      return pelicula;
+      const nuevaPelicula = await pelicula.create(data);
+      return nuevaPelicula;
     } catch (error) {
-      throw new Error("No se pudo crear la película.");
+      throw new Error(Error.errorCrearPelicula);
     }
   }
 
@@ -34,11 +36,11 @@ class PeliculaService {
     try {
       const [rowsUpdated, updatedPelicula] = await pelicula.update(data, { where: { id } });
       if (rowsUpdated === 0) {
-        throw new Error("No se encontró la película para actualizar.");
+        throw new Error(Error.errorActualizarPelicula);
       }
       return updatedPelicula;
     } catch (error) {
-      throw new Error("No se pudo actualizar la película.");
+      throw new Error(Error.errorActualizarPelicula);
     }
   }
 
@@ -46,10 +48,10 @@ class PeliculaService {
     try {
       const deletedCount = await pelicula.destroy({ where: { id } });
       if (deletedCount === 0) {
-        throw new Error("No se encontró la película para eliminar.");
+        throw new Error(Error.errorEliminarPelicula);
       }
     } catch (error) {
-      throw new Error("No se pudo eliminar la película.");
+      throw new Error(Error.errorEliminarPelicula);
     }
   }
 }

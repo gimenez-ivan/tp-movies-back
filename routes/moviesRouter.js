@@ -13,6 +13,11 @@ peliculasRouter.get('/:id', movieController.getMovieById); // testeado OK
 peliculasRouter.put('/:id', movieController.updateMovie); // testeado OK
 peliculasRouter.delete('/:id', movieController.deleteMovie); // testeado OK
 
+// Manejo de rutas no encontradas
+peliculasRouter.use((req, res) => {
+    res.status(404).send({ success: false, message: ErrorMessages.RutaNoEncontrada });
+  });
+  
 
 export default peliculasRouter;
 

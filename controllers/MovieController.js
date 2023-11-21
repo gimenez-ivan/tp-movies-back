@@ -1,4 +1,5 @@
-import { Movie, Review } from "../models/index.js"
+import { Movie, Review } from "../models/index.js";
+import { ErrorMessages } from "../error/errorMessages.js";
 import { Op } from 'sequelize';
 
 class MovieController {
@@ -12,14 +13,14 @@ class MovieController {
       const movies = await Movie.findAll();
 
       if (movies.length === 0) {
-        // Si no hay películas te avisa
+        // Si no hay películas disponibles, envía un mensaje
         res.status(200).send({
           success: true,
-          message: "No hay películas disponibles actualmente.",
+          message: ErrorMessages.NoPeliculasDisponibles,
           data: [],
         });
       } else {
-      
+        // Si hay películas, envía la lista
         res.status(200).send({
           success: true,
           message: "Todas las películas",
@@ -27,23 +28,23 @@ class MovieController {
         });
       }
     } catch (error) {
-      
+      // En caso de error, envía un mensaje de error
       res.status(400).send({
         success: false,
-        message: `Error al obtener películas: ${error.message}`,
+        message: ErrorMessages.ErrorObtenerPeliculas,
       });
     }
   };
 
   getMovieByRating = async (req, res) => {
     try {
-      // Obtiene la calificación del cuerpo de la solicitud (asumo que la trae desde el frontend VER!
+      // Obtiene la calificación del cuerpo de la solicitud
       const { rating } = req.body;
       
       // Valida que la calificación sea un número válido
       const parsedRating = parseInt(rating, 10);
       if (isNaN(parsedRating) || parsedRating < 1 || parsedRating > 10) {
-        return res.status(400).send({ success: false, message: "La calificación proporcionada no es válida." });
+        return res.status(400).send({ success: false, message: ErrorMessages.CalificacionInvalida });
       }
   
       // Busca las revisiones con una calificación mayor o igual a la proporcionada
@@ -86,7 +87,7 @@ class MovieController {
         // Si no hay películas con calificación 10, envía un mensaje indicando que no las hay
         res.status(200).send({
           success: true,
-          message: "No hay películas con calificación 10 disponibles actualmente.",
+          message: ErrorMessages.NoPeliculasCalificacion10,
           data: [],
         });
       } else {
@@ -101,11 +102,10 @@ class MovieController {
       // En caso de error, envía un mensaje de error
       res.status(400).send({
         success: false,
-        message: `Error al obtener películas con calificación 10: ${error.message}`,
+        message: ErrorMessages.ErrorObtenerPeliculasCalificacion10,
       });
     }
   };
-  
 
   getMovieById = async (req, res) => {
     try {
@@ -114,13 +114,13 @@ class MovieController {
       const movieId = parseInt(id, 10);
       
       if (isNaN(movieId)) {
-        throw new Error("El ID de la película no es válido.");
+        throw new Error(ErrorMessages.IdPeliculaNoValido);
       }
 
       const movie = await Movie.findOne({ where: { id: movieId } });
 
       if (!movie) {
-        throw new Error("No se encontró la película");
+        throw new Error(ErrorMessages.PeliculaNoEncontrada);
       }
   
       res.status(200).send({ success: true, message: "Película encontrada", data: movie });
@@ -129,58 +129,54 @@ class MovieController {
     }
   };
 
-createMovie = async (req, res) => {
-  try {
-    const { title, year, category, director, description } = req.body;
-    const nuevaPelicula = await Movie.create({ title, year, category, director, description });
-    res.status(200).send({ success: true, message: "Película creada", data: nuevaPelicula });
-  } catch (error) {
-    res.status(400).send({ success: false, message: error.message });
-  }
-};
-
-
-updateMovie = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { title, year, category, director, description } = req.body;
-    const movieActualizada = await Movie.update(
-      { title, year, category, director, description },
-      { where: { id } }
-    );
-    res.status(200).send({ success: true, message: "Película modificada", data: movieActualizada });
-  } catch (error) {
-    res.status(400).send({ success: false, message: error.message });
-  }
-};
-
-
-deleteMovie = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    if (isNaN(id) || parseInt(id) <= 0) {
-      return res.status(400).send({ success: false, message: "El ID de la película no es válido." });
+  createMovie = async (req, res) => {
+    try {
+      const { title, year, category, director, description } = req.body;
+      const nuevaPelicula = await Movie.create({ title, year, category, director, description });
+      res.status(200).send({ success: true, message: "Película creada", data: nuevaPelicula });
+    } catch (error) {
+      res.status(400).send({ success: false, message: error.message });
     }
+  };
 
-    const existingMovie = await Movie.findByPk(id);
-    if (!existingMovie) {
-      return res.status(404).send({ success: false, message: "No se encontró la película con el ID proporcionado." });
+  updateMovie = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { title, year, category, director, description } = req.body;
+      const movieActualizada = await Movie.update(
+        { title, year, category, director, description },
+        { where: { id } }
+      );
+      res.status(200).send({ success: true, message: "Película modificada", data: movieActualizada });
+    } catch (error) {
+      res.status(400).send({ success: false, message: error.message });
     }
+  };
 
-    const peliculaEliminada = await Movie.destroy({ where: { id } });
+  deleteMovie = async (req, res) => {
+    try {
+      const { id } = req.params;
 
+      if (isNaN(id) || parseInt(id) <= 0) {
+        return res.status(400).send({ success: false, message: ErrorMessages.IdPeliculaNoValido });
+      }
+
+      const existingMovie = await Movie.findByPk(id);
+      if (!existingMovie) {
+        return res.status(404).send({ success: false, message: ErrorMessages.PeliculaNoEncontrada });
+      }
+
+      const peliculaEliminada = await Movie.destroy({ where: { id } });
   
-    if (peliculaEliminada > 0) {
-      res.status(200).send({ success: true, message: "Película eliminada", data: peliculaEliminada });
-    } else {
-      res.status(404).send({ success: false, message: "No se encontró la película con el ID proporcionado." });
+      if (peliculaEliminada > 0) {
+        res.status(200).send({ success: true, message: "Película eliminada", data: peliculaEliminada });
+      } else {
+        res.status(404).send({ success: false, message: ErrorMessages.PeliculaNoEncontrada });
+      }
+    } catch (error) {
+      res.status(500).send({ success: false, message: ErrorMessages.ErrorEliminarPelicula });
     }
-  } catch (error) {
-    res.status(500).send({ success: false, message: `Error al eliminar la película: ${error.message}` });
-  }
-};
-
+  };
 }
 
 export default MovieController;

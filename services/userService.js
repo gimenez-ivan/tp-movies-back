@@ -1,4 +1,5 @@
 import { usuario } from "../models/index.js";
+import { Error } from "../error/ErrorMessage.js";
 
 class UsuarioService {
   async getAllUsuarios() {
@@ -8,7 +9,7 @@ class UsuarioService {
       });
       return { success: true, data: users };
     } catch (error) {
-      return { success: false, error: error.message };
+      return { success: false, error: Error.errorObtenerUsuarios };
     }
   }
 
@@ -19,11 +20,11 @@ class UsuarioService {
         attributes: ["id", "nombreUsuario"],
       });
       if (!user) {
-        return { success: false, error: "No se encontró el usuario" };
+        return { success: false, error: Error.usuarioNoEncontrado };
       }
       return { success: true, data: user };
     } catch (error) {
-      return { success: false, error: error.message };
+      return { success: false, error: Error.errorObtenerUsuario };
     }
   }
 
@@ -31,11 +32,11 @@ class UsuarioService {
     try {
       const user = await usuario.create({ nombreUsuario, contraseña });
       if (!user) {
-        return { success: false, error: "No se pudo crear el usuario" };
+        return { success: false, error: Error.errorCrearUsuario };
       }
       return { success: true, data: user };
     } catch (error) {
-      return { success: false, error: error.message };
+      return { success: false, error: Error.errorCrearUsuario };
     }
   }
 
@@ -43,32 +44,26 @@ class UsuarioService {
     try {
       const [updatedRows] = await usuario.update(
         { nombreUsuario, contraseña },
-        {
-          where: {
-            id,
-          },
-        }
+        { where: { id } }
       );
       if (updatedRows === 0) {
-        return { success: false, error: "No se encontró el usuario para actualizar" };
+        return { success: false, error: Error.errorActualizarUsuario };
       }
       return { success: true, message: "Usuario modificado" };
     } catch (error) {
-      return { success: false, error: error.message };
+      return { success: false, error: Error.errorActualizarUsuario };
     }
   }
 
   async deleteUser(id) {
     try {
-      const deletedRows = await usuario.destroy({
-        where: { id },
-      });
+      const deletedRows = await usuario.destroy({ where: { id } });
       if (deletedRows === 0) {
-        return { success: false, error: "No se encontró el usuario para eliminar" };
+        return { success: false, error: Error.errorEliminarUsuario };
       }
       return { success: true, message: "Usuario eliminado" };
     } catch (error) {
-      return { success: false, error: error.message };
+      return { success: false, error: Error.errorEliminarUsuario };
     }
   }
 }

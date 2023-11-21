@@ -22,6 +22,7 @@ export const verifyToken = (token) => {
   }
 }
 
+
 // const payload = { usuario: 'ejemplo' };
 // const token = generateToken(payload);
 

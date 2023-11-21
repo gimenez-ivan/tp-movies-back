@@ -1,24 +1,24 @@
 import { Role } from "../models/index.js";
-import _ from "lodash";
+import { ErrorMessages } from "../error/errorMessages.js";
 
 class RoleController {
   constructor() {
     this.role = Role;
   }
 
+  // Obtener todos los roles disponibles
   getRoles = async (req, res) => {
     try {
-
       const roles = await this.role.findAll({
         attributes: ["id", "scope"],
       });
       res.status(200).send({ success: true, message: "Roles", data: roles });
     } catch (error) {
-      res.status(400).send({ success: false, message: error.message });
+      res.status(400).send({ success: false, message: ErrorMessages.errorObtenerRoles });
     }
   };
 
-
+  // Obtener un rol por su ID
   getRoleById = async (req, res) => {
     try {
       const { id } = req.params;
@@ -26,45 +26,52 @@ class RoleController {
         where: { id },
         attributes: ["id", "scope"],
       });
-      if (!role) throw new Error(`No se encontró ningún rol con el id ${id}.`);
-      res.status(200).send({ success: true, message: "Rol encontrado", data: role });
+
+      if (!role) throw new Error(ErrorMessages.RolNoEncontrado(id));
+
+      res.status(200).send({ success: true, message: ErrorMessages.RolEncontrado, data: role });
     } catch (error) {
       res.status(400).send({ success: false, message: error.message });
     }
   };
 
+  // Crear un nuevo rol
+
+  //agregar filtro
   createRole = async (req, res) => {
-    // Meter filtro isAdmin
     try {
       const { scope } = req.body;
 
-      if (scope.length < 1) throw new Error("No fue posible crear el rol, el scope ingresado es inválido");
+      if (scope.length < 1) throw new Error(ErrorMessages.RolNoCrear);
 
-      const role = await Role.create({ scope });
-      if (!role) throw new Error("Ocurrió un error al crear el rol");
+      const rol = await Role.create({ scope });
 
-      res.status(200).send({ success: true, message: "Role creado exitosamente", role });
+      if (!rol) throw new Error(ErrorMessages.RolErrorCrear);
+
+      res.status(200).send({ success: true, message: ErrorMessages.RolCreado, data: rol });
     } catch (error) {
       res.status(400).send({ success: false, message: error.message });
     }
   };
 
+  // Eliminar un rol por su ID
   deleteRole = async (req, res) => {
     try {
       const { id } = req.params;
       const role = await this.role.destroy({
         where: { id },
       });
-      if (!role) throw new Error(`No se encontró ningún rol con el id ${id}.`);
-      res.status(200).send({ success: true, message: `Rol (${id}) eliminado exitosamen`, data: role });
+
+      if (!role) throw new Error(ErrorMessages.RolNoEncontrado(id));
+
+      res.status(200).send({ success: true, message: ErrorMessages.RolEliminado(id), data: role });
     } catch (error) {
       res.status(400).send({ success: false, message: error.message });
     }
   };
-};
+}
 
 // No está permitido editar roles.
-
 // updateRole = async (req, res) => {
 //   try {
 //   } catch (error) { }

@@ -1,21 +1,36 @@
 import { Router } from 'express';
-
 import UserController from '../controllers/UserController.js';
 import { validateUser } from '../midlewares/validateUser.js';
 import { isAdmin } from '../midlewares/isAdmin.js';
+import { ErrorMessages } from '../error/errorMessages.js';
 
 const usuariosRouter = Router();
 const userController = new UserController();
 
-usuariosRouter.post('/login', userController.login);
-usuariosRouter.get('/list', userController.getUsers); // Solo admin puede ver todos los usuarios
-usuariosRouter.get('/:id', userController.getUserById);
-usuariosRouter.post('/create', userController.createUser);
-usuariosRouter.get('/login', userController.login);
-usuariosRouter.get('/list', isAdmin, userController.getUsers); // Solo admin puede ver todos los usuarios
-usuariosRouter.get('/me', validateUser, userController.me);// esto ???
-usuariosRouter.get('/:id', validateUser, userController.getUserById);
-usuariosRouter.put('/:id', validateUser, userController.updateUser);
-usuariosRouter.delete('/:id', validateUser, userController.deleteUser);
+// Iniciar sesión
+usuariosRouter.post('/login', userController.login); // Ruta para iniciar sesión
+
+// Obtener la lista de usuarios (Solo admin puede ver todos los usuarios)
+usuariosRouter.get('/list', isAdmin, userController.getUsers); // Ruta para obtener la lista de usuarios (solo accesible para admin)
+
+// Obtener un usuario por su ID
+usuariosRouter.get('/:id', validateUser, userController.getUserById); // Ruta para obtener un usuario por su ID
+
+// Crear un nuevo usuario
+usuariosRouter.post('/create', userController.createUser); // Ruta para crear un nuevo usuario
+
+// Obtener los datos del usuario logueado (requiere autenticación)
+usuariosRouter.get('/me', validateUser, userController.me); // Ruta para obtener los datos del usuario logueado
+
+// Actualizar un usuario por su ID (requiere autenticación)
+usuariosRouter.put('/:id', validateUser, userController.updateUser); // Ruta para actualizar un usuario por su ID
+
+// Eliminar un usuario por su ID (requiere autenticación)
+usuariosRouter.delete('/:id', validateUser, userController.deleteUser); // Ruta para eliminar un usuario por su ID
+
+// Manejo de rutas no encontradas
+usuariosRouter.use((req, res) => {
+  res.status(404).send({ success: false, message: ErrorMessages.RutaNoEncontrada });
+});
 
 export default usuariosRouter;
