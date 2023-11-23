@@ -1,11 +1,15 @@
 // CatalogController.js
-import { Movie, Catalog } from "../models/index.js";
+import { Movie, Catalog, MovieCatalog } from "../models/index.js";
 import ErrorMessages from "../error/errorMessages.js";
 
 class CatalogController {
   constructor() {
     this.catalog = Catalog;
   }
+
+  // Hay que desarrollar este metodo. Fiejnse el model de catalogo
+  createCatalog = async (req, res) => {}
+
 
   getCatalogMovies = async (req, res) => {
     try {
