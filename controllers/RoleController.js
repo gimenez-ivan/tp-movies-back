@@ -61,10 +61,12 @@ class RoleController {
       const role = await this.role.destroy({
         where: { id },
       });
-
-      if (!role) throw new Error(ErrorMessages.RolNoEncontrado(id));
-
-      res.status(200).send({ success: true, message: ErrorMessages.RolEliminado(id), data: role });
+  
+      if (role === 0) {
+        throw new Error(`El rol con ID ${id} no fue encontrado o ya ha sido eliminado.`);
+      }
+  
+      res.status(200).send({ success: true, message: `El rol con ID ${id} ha sido eliminado exitosamente.`, data: role });
     } catch (error) {
       res.status(400).send({ success: false, message: error.message });
     }
