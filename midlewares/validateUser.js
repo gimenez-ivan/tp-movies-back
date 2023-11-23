@@ -1,13 +1,16 @@
 import { verifyToken } from "../utils/jwt.js";
 
 export const validateUser = async (req, res, next) => {
-  const currentPath = (req.baseUrl + req.path)
-  const method = { req }
+  const currentPath = req.baseUrl + req.path
+  const { method } = req
+
+  if (isCreatePath(currentPath, method) || isLoginPath(currentPath, method)) return next();
+
   try {
     const { token } = req.cookies;
     const user = verifyToken(token);
 
-    if (!user && !isCreatePath(currentPath, method)) throw new Error("credenciales inválidas")
+    if (!user) throw new Error("credenciales inválidas")
 
     req.user = user;
     next();
@@ -18,5 +21,9 @@ export const validateUser = async (req, res, next) => {
 };
 
 const isCreatePath = (path, method) => {
-  return path === '/api/users/create' && req.method === 'POST';
+  return path === '/api/users/create' && method === 'POST';
+}
+
+const isLoginPath = (path, method) => {
+  return path === '/api/users/login' && method === 'POST';
 }
