@@ -23,7 +23,7 @@ class UserController {
   // Iniciar sesión del usuario
   login = async (req, res) => {
     try {
-      const { email, userName, password } = req.body;
+      const { email, password } = req.body;
 
       const user = await User.findOne({
         where: { email },
@@ -72,7 +72,7 @@ class UserController {
 
       if (!user) throw new Error(ErrorMessages.ErrorCrearUsuario);
 
-      res.status(200).send({ success: true, message: ErrorMessages.UsuarioCreado, data: user });
+      res.status(200).send({ success: true, message: ErrorMessages.UsuarioCreado});
     } catch (error) {
       res.status(400).send({ success: false, message: error.message });
     }
