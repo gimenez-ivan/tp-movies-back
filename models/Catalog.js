@@ -9,9 +9,22 @@ Catalog.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    movieId: {
-      type: DataTypes.INTEGER,
+    name: {
+      type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "El nombre del catalogo no puede estar vacío.",
+        },
+        len: {
+          args: [3, 50],
+          msg: "El nombre debe tener entre 3 y 50 caracteres.",
+        },
+      },
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true,
     }
   },
   {

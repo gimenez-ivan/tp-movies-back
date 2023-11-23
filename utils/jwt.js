@@ -21,14 +21,3 @@ export const verifyToken = (token) => {
     throw new Error('Token no válido');
   }
 }
-
-
-// const payload = { usuario: 'ejemplo' };
-// const token = generateToken(payload);
-
-// try {
-//   const verifiedToken = verifyToken(token);
-//   console.log('Token verificado:', verifiedToken);
-// } catch (error) {
-//   console.error(error.message);
-// }

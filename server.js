@@ -3,6 +3,7 @@ import connection from "./database/index.js";
 import router from "./routes/index.js";
 import { SERVER_PORT } from "./config/config.js";
 import cookieParser from "cookie-parser";
+import { validateUser } from "./midlewares/validateUser.js";
 
 const app = express();
 
@@ -10,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use("/api", router);
+app.use("/api", validateUser, router);
 
 await connection.sync({ force: false }).then(() => {
   app.listen(SERVER_PORT, () => {

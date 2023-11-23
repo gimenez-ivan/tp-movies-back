@@ -14,7 +14,7 @@ class UserController {
       const users = await this.user.findAll({
         attributes: ["id", "userName", "email"],
       });
-      res.status(200).send({ success: true, message: ErrorMessages.errorObtenerUsuarios, data: users });
+      res.status(200).send({ success: true, message: 'Se obtuvieron los usuarios', data: users });
     } catch (error) {
       res.status(400).send({ success: false, message: error.message });
     }
@@ -29,7 +29,6 @@ class UserController {
         where: { email },
         include: [{ model: Role }],
       });
-
       if (!user) throw new Error(ErrorMessages.CredencialesInvalidas);
 
       const validate = await user.validatePassword(password);
@@ -37,7 +36,7 @@ class UserController {
 
       const payload = {
         id: user.id,
-        role: user.Role.dataValues.name,
+        roleName: user.dataValues.Role.dataValues.scope,
       };
 
       const token = generateToken(payload);
