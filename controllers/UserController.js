@@ -1,5 +1,5 @@
 import { User, Role } from "../models/index.js";
-import { ErrorMessages } from "../error/errorMessages.js";
+import ErrorMessages from "../error/errorMessages.js";
 import { isAdmin } from "../midlewares/isAdmin.js";
 import { generateToken, verifyToken } from "../utils/jwt.js";
 

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import ReviewController from '../controllers/reviewController.js';
-import { ErrorMessages } from '../error/errorMessages.js';
+import ErrorMessages from '../error/errorMessages.js';
 
 const reviewController = new ReviewController();
 

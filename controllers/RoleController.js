@@ -1,5 +1,5 @@
 import { Role } from "../models/index.js";
-import { ErrorMessages } from "../error/errorMessages.js";
+import ErrorMessages from "../error/errorMessages.js";
 
 class RoleController {
   constructor() {
@@ -27,9 +27,9 @@ class RoleController {
         attributes: ["id", "scope"],
       });
 
-      if (!role) throw new Error(ErrorMessages.RolNoEncontrado(id));
+      if (!role) throw new Error(`${ErrorMessages.RolNoEncontrado} (${id}).`);
 
-      res.status(200).send({ success: true, message: ErrorMessages.RolEncontrado, data: role });
+      res.status(200).send({ success: true, message: `${ErrorMessages.RolEncontrado}`, data: role });
     } catch (error) {
       res.status(400).send({ success: false, message: error.message });
     }

@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { isOwner } from '../midlewares/isOwner.js'; 
+import { isOwner } from '../midlewares/isOwner.js';
 import CatalogController from '../controllers/CatalogController.js';
-import { ErrorMessages } from '../error/errorMessages.js';
+import ErrorMessages from '../error/errorMessages.js';
 
 const catalogRouter = Router();
 const catalogController = new CatalogController();

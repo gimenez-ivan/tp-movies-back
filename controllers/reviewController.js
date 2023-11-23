@@ -1,5 +1,5 @@
 import { Review } from "../models/index.js";
-import { ErrorMessages } from "../error/errorMessages.js";
+import ErrorMessages from "../error/errorMessages.js";
 
 class ReviewController {
   constructor() {

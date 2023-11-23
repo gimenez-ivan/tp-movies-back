@@ -1,5 +1,5 @@
 import { Movie, Review } from "../models/index.js";
-import { ErrorMessages } from "../error/errorMessages.js";
+import ErrorMessages from "../error/errorMessages.js";
 import { Op } from 'sequelize';
 
 class MovieController {
@@ -40,13 +40,13 @@ class MovieController {
     try {
       // Obtiene la calificación del cuerpo de la solicitud
       const { rating } = req.body;
-      
+
       // Valida que la calificación sea un número válido
       const parsedRating = parseInt(rating, 10);
       if (isNaN(parsedRating) || parsedRating < 1 || parsedRating > 10) {
         return res.status(400).send({ success: false, message: ErrorMessages.CalificacionInvalida });
       }
-  
+
       // Busca las revisiones con una calificación mayor o igual a la proporcionada
       const reviews = await Review.findAll({
         where: {
@@ -55,10 +55,10 @@ class MovieController {
           },
         },
       });
-  
+
       // Obtiene los IDs de las películas desde las revisiones
       const movieIds = reviews.map(review => review.movieId);
-  
+
       // Busca las películas correspondientes a los IDs obtenidos
       const movies = await Movie.findAll({
         where: {
@@ -67,7 +67,7 @@ class MovieController {
           },
         },
       });
-  
+
       res.status(200).send({ success: true, message: "Películas con calificación mayor o igual", data: movies });
     } catch (error) {
       res.status(400).send({ success: false, message: error.message });
@@ -82,7 +82,7 @@ class MovieController {
           rating: 10, // Filtrar por calificación 10
         },
       });
-  
+
       if (topMovies.length === 0) {
         // Si no hay películas con calificación 10, envía un mensaje indicando que no las hay
         res.status(200).send({
@@ -112,7 +112,7 @@ class MovieController {
       const { id } = req.params;
       console.log("Received ID:", id);
       const movieId = parseInt(id, 10);
-      
+
       if (isNaN(movieId)) {
         throw new Error(ErrorMessages.IdPeliculaNoValido);
       }
@@ -122,7 +122,7 @@ class MovieController {
       if (!movie) {
         throw new Error(ErrorMessages.PeliculaNoEncontrada);
       }
-  
+
       res.status(200).send({ success: true, message: "Película encontrada", data: movie });
     } catch (error) {
       res.status(400).send({ success: false, message: error.message });
@@ -167,7 +167,7 @@ class MovieController {
       }
 
       const peliculaEliminada = await Movie.destroy({ where: { id } });
-  
+
       if (peliculaEliminada > 0) {
         res.status(200).send({ success: true, message: "Película eliminada", data: peliculaEliminada });
       } else {

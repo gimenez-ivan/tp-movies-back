@@ -3,7 +3,7 @@ import ProfileController from "../controllers/ProfileController.js";
 import { isAdmin } from "../midlewares/isAdmin.js";
 import { isOwner } from "../midlewares/isOwner.js";
 import { validateUser } from "../midlewares/validateUser.js";
-import { ErrorMessages } from '../error/errorMessages.js';
+import ErrorMessages from '../error/errorMessages.js';
 
 const profilesRouter = Router();
 const profileController = new ProfileController();

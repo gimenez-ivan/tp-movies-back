@@ -1,6 +1,6 @@
 // CatalogController.js
 import { Movie, Catalog } from "../models/index.js";
-import { ErrorMessages } from "../error/errorMessages.js";
+import ErrorMessages from "../error/errorMessages.js";
 
 class CatalogController {
   constructor() {

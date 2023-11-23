@@ -2,7 +2,7 @@ import { Router } from 'express';
 import UserController from '../controllers/UserController.js';
 import { validateUser } from '../midlewares/validateUser.js';
 import { isAdmin } from '../midlewares/isAdmin.js';
-import { ErrorMessages } from '../error/errorMessages.js';
+import ErrorMessages from '../error/errorMessages.js';
 
 const usuariosRouter = Router();
 const userController = new UserController();

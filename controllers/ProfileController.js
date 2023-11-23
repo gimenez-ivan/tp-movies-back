@@ -1,5 +1,5 @@
 import { Profile } from "../models/index.js";
-import { ErrorMessages } from "../error/errorMessages.js";
+import ErrorMessages from "../error/errorMessages.js";
 
 class ProfileController {
   constructor() {
@@ -16,7 +16,7 @@ class ProfileController {
 
       // Si no se encuentra el perfil, se lanza un error
       if (!profile) throw new Error(ErrorMessages.NoPerfil);
-      
+
       // Enviar el perfil encontrado
       res.status(200).send({ success: true, message: "Perfil encontrado", data: profile });
     } catch (error) {

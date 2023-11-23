@@ -1,7 +1,7 @@
 import { Router } from "express";
 import RoleController from "../controllers/RoleController.js";
 import { isAdmin } from "../midlewares/isAdmin.js";
-import { ErrorMessages } from "../error/errorMessages.js";
+import ErrorMessages from "../error/errorMessages.js";
 
 const rolesRouter = Router();
 const roleController = new RoleController();
