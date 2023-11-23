@@ -1,8 +1,10 @@
+import ErrorMessages from "../error/errorMessages";
+
 export const isAdmin = async (req, res, next) => {
   try {
-    const { usuario } = req;
-    if (usuario.role !== "admin") throw new Error("No tiene permiso para utilizar este recurso");
-    req.usuario = usuario;
+    const {user} = req;
+    if(user.role !== "admin") throw new Error(ErrorMessages.SoloPropietario);
+    req.user = user;
     next();
   } catch (error) {
     res.status(401).send({ message: error.message });
